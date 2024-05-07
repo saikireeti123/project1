@@ -1,15 +1,17 @@
-name: pipeline for to automate the deployment of infrastructure 
- 
- 
-  on:
-  push:
-  branches:
-  - 'main'
-  env:
-   AWS_ACCESS_KEY: ${{secrets.AWS_ACCESS_KEY}}
-   AWS_SECRET_KEY: ${{secrets.AWS_SECRET_KEY}}
 
-   jobs:
+name: Terraform CI CD Pipeline for Deploying AWS Resources
+run-name: ${{ github.actor }} has triggered the pipeline
+
+on:
+  push:
+    branches:
+      - 'main'
+
+env:
+  AWS_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY }}
+  AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+jobs:
   build-infra:
     name: terraform-ci-cd
     runs-on: ubuntu-latest
@@ -21,20 +23,16 @@ name: pipeline for to automate the deployment of infrastructure
       - name: Terraform Init
         id: init
         run: terraform init
-        working-directory: ./project1
+        working-directory: ./Terraform-VPC
       - name: Terraform Validate
         id: validate
         run: terraform validate
-        working-directory: ./project1
+        working-directory: ./Terraform-VPC
       - name: Terraform Plan
         id: plan
         run: terraform plan
-        working-directory: ./project1
+        working-directory: ./Terraform-VPC
       - name: Terraform Apply
         id: apply
         run: terraform destroy --auto-approve
-        working-directory: ./project1
-
-
-      
-    
+        working-directory: ./Terraform-VPC
