@@ -1,5 +1,5 @@
 name: pipeline for to automate the deployment of infrastructure 
-  run-name: ${{github.actor}} has trigger the pipeline 
+ 
  
   on:
   push:
